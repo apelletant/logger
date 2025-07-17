@@ -13,17 +13,17 @@ const (
 	ColorOrange = "\033[33m"
 )
 
-type CustomLogger struct {
+type Logger struct {
 	enableDebug bool
 }
 
-func NewCustomLogger(enableDebug bool) *CustomLogger {
-	return &CustomLogger{
+func NewLogger(enableDebug bool) *Logger {
+	return &Logger{
 		enableDebug: enableDebug,
 	}
 }
 
-func (l *CustomLogger) Info(message string, fields ...interface{}) {
+func (l *Logger) Info(message string, fields ...interface{}) {
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
 	logMessage := fmt.Sprintf("[%s] [INFO] %s", timestamp, message)
 
@@ -34,7 +34,7 @@ func (l *CustomLogger) Info(message string, fields ...interface{}) {
 	log.Println(logMessage)
 }
 
-func (l *CustomLogger) Error(message string, err error, fields ...interface{}) {
+func (l *Logger) Error(message string, err error, fields ...interface{}) {
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
 	logMessage := fmt.Sprintf("[%s] [ERROR] %s", timestamp, message)
 
@@ -49,7 +49,7 @@ func (l *CustomLogger) Error(message string, err error, fields ...interface{}) {
 	log.Println(ColorRed + logMessage + ColorReset)
 }
 
-func (l *CustomLogger) Warn(message string, fields ...interface{}) {
+func (l *Logger) Warn(message string, fields ...interface{}) {
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
 	logMessage := fmt.Sprintf("[%s] [WARN] %s", timestamp, message)
 
@@ -60,7 +60,7 @@ func (l *CustomLogger) Warn(message string, fields ...interface{}) {
 	log.Println(ColorOrange + logMessage + ColorReset)
 }
 
-func (l *CustomLogger) Debug(message string, fields ...interface{}) {
+func (l *Logger) Debug(message string, fields ...interface{}) {
 	if !l.enableDebug {
 		return
 	}
@@ -75,7 +75,7 @@ func (l *CustomLogger) Debug(message string, fields ...interface{}) {
 	log.Println(logMessage)
 }
 
-func (l *CustomLogger) Success(message string, fields ...interface{}) {
+func (l *Logger) Success(message string, fields ...interface{}) {
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
 	logMessage := fmt.Sprintf("[%s] [SUCCESS] %s", timestamp, message)
 
